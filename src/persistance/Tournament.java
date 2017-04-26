@@ -20,6 +20,7 @@ public class Tournament {
 
     public Tournament() {
         players = new ArrayList<>();
+        rounds = new ArrayList<>();
     }
 
     public Tournament(ArrayList<Player> players, ArrayList<Round> rounds) {
@@ -51,26 +52,20 @@ public class Tournament {
         this.name = name;
     }
 
-    public int getBattlesRound() {
-        int ret = players.size() / 2;
-        return ret;
-    }
-
     public ArrayList<Player> nextBattles() {
         ArrayList<Player> ordered = new ArrayList<>();
         ArrayList<Player> woRival = new ArrayList<>();
         for (Player p : players) {
             woRival.add(p);
         }
-        order();
-        for (int i = 0; i < woRival.size() || woRival.size() == 1; i++) {
+        orderByPoints();
+        for (int i = 0; i < woRival.size() && woRival.size() != 1; i++) {
             Player p = woRival.get(i);
             ordered.add(p);
             Player rival = nextRival(p, woRival);
             ordered.add(rival);
             woRival.remove(rival);
             woRival.remove(p);
-            i--;
             i--;
         }
         return ordered;
@@ -85,33 +80,8 @@ public class Tournament {
         return null;
     }
 
-    public void order() {
-        /*
-        for (Player pivote : players) {
-            for (Player p : players) {
-                if (p != pivote && pivote.getPoints() > p.getPoints()) {
-                    switchPivote(pivote, p);
-                    order();
-                    return;
-                }
-            }
-        }*/
+    public void orderByPoints() {
         Collections.sort(players, (Player r1, Player r2) ->
         r1.getPoints().compareTo(r2.getPoints()));
     }
-
-    private void switchPivote(Player pivote, Player p) {
-        ArrayList<Player> newList = new ArrayList<>();
-        for (Player pl : players) {
-            if (pl == pivote) {
-                newList.add(p);
-            } else if (pl == p) {
-                newList.add(pivote);
-            } else {
-                newList.add(pl);
-            }
-        }
-        players = newList;
-    }
-
 }

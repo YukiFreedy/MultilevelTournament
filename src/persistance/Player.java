@@ -18,6 +18,7 @@ public class Player {
     private String name;
     private Integer points;
     private ArrayList<Player> played;
+    private int position;
     
     private final StringProperty nameP = new SimpleStringProperty();
     private final StringProperty pointP = new SimpleStringProperty();
@@ -30,13 +31,18 @@ public class Player {
     public Player(String name) {
         this.name = name;
         played = new ArrayList<>();
+        points = 0;
+        position = 0;
     }
 
-    public Player(String name, int points, ArrayList<Player> played) {
+    public Player(String name, Integer points, ArrayList<Player> played, int position) {
         this.name = name;
         this.points = points;
         this.played = played;
+        this.position = position;
     }
+
+    
 
     public StringProperty namePProperty() {
         return nameP;
@@ -50,10 +56,10 @@ public class Player {
         return positionP;
     }
     
-    public void refresh(String position){
+    public void refresh(){
         nameP.set(name);
         pointP.set(Integer.toString(points));
-        positionP.set(position);
+        positionP.set(Integer.toString(position));
     }
     
     public String getName() {
@@ -78,6 +84,14 @@ public class Player {
 
     public void setPlayed(ArrayList<Player> played) {
         this.played = played;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
     
     

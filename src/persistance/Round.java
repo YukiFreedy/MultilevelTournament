@@ -20,6 +20,11 @@ public class Round {
         results = new ArrayList<>();
     }
 
+    public Round(int roundNum) {
+        this.roundNum = roundNum;
+        results = new ArrayList<>();
+    }
+
     public Round(ArrayList<Result> results, int roundNum) {
         this.results = results;
         this.roundNum = roundNum;
