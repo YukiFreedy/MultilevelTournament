@@ -7,7 +7,6 @@ package controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import utils.Factory;
 import utils.WindowMaker;
 
 /**

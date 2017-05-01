@@ -8,6 +8,7 @@ package persistance;
 import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utils.Singleton;
 
 /**
  *
@@ -94,5 +95,11 @@ public class Player {
         this.position = position;
     }
     
+    public void winGame(Tournament t){
+        points += t.getPointsXWin();
+    }
     
+    public void loseGame(Tournament t){
+        points += t.getPointsXLose();
+    }
 }

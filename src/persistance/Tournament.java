@@ -17,15 +17,21 @@ public class Tournament {
     private ArrayList<Player> players;
     private ArrayList<Round> rounds;
     private String name;
+    private int pointsXWin, pointsXLose;
 
     public Tournament() {
         players = new ArrayList<>();
         rounds = new ArrayList<>();
+        pointsXWin = 1;
+        pointsXLose = -1;
     }
 
-    public Tournament(ArrayList<Player> players, ArrayList<Round> rounds) {
+    public Tournament(ArrayList<Player> players, ArrayList<Round> rounds, String name, int pointsXWin, int pointsXLose) {
         this.players = players;
         this.rounds = rounds;
+        this.name = name;
+        this.pointsXWin = pointsXWin;
+        this.pointsXLose = pointsXLose;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -59,14 +65,14 @@ public class Tournament {
             woRival.add(p);
         }
         orderByPoints();
-        for (int i = 0; i < woRival.size() && woRival.size() != 1; i++) {
+        for (int i = 0; woRival.size() > 1; ) {
             Player p = woRival.get(i);
             ordered.add(p);
             Player rival = nextRival(p, woRival);
-            ordered.add(rival);
-            woRival.remove(rival);
+            if(rival != null) ordered.add(rival);
+            else ordered.remove(p);
             woRival.remove(p);
-            i--;
+            woRival.remove(rival);
         }
         return ordered;
     }
@@ -74,7 +80,7 @@ public class Tournament {
     public Player nextRival(Player player, ArrayList<Player> woRival) {
         for (Player p : woRival) {
             if (p != player && !p.getPlayed().contains(player)) {
-                return player;
+                return p;
             }
         }
         return null;
@@ -82,6 +88,25 @@ public class Tournament {
 
     public void orderByPoints() {
         Collections.sort(players, (Player r1, Player r2) ->
-        r1.getPoints().compareTo(r2.getPoints()));
+        r2.getPoints().compareTo(r1.getPoints()));
+        for(Player p : players) p.setPosition(players.indexOf(p)+1);
     }
+
+    public int getPointsXWin() {
+        return pointsXWin;
+    }
+
+    public void setPointsXWin(int pointsXWin) {
+        this.pointsXWin = pointsXWin;
+    }
+
+    public int getPointsXLose() {
+        return pointsXLose;
+    }
+
+    public void setPointsXLose(int pointsXLose) {
+        this.pointsXLose = pointsXLose;
+    }
+    
+    
 }
